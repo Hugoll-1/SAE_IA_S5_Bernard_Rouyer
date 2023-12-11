@@ -120,7 +120,7 @@ public class MainPerceptron {
             double sortieCible = getTargetOutput(exemple)[0];
 
             // Afficher les résultats de test
-            System.out.println("Test exemple " + exemple + ": " + Arrays.toString(sortiePredite)+ " (cible: " + sortieCible + "), erreur: " + (sortieCible - sortiePredite[0]));
+            System.out.println("Test exemple " + exemple + ": " + Arrays.toString(sortiePredite)+ " (cible: " + sortieCible + "), erreur: " + Math.abs(sortieCible - sortiePredite[0]));
         }
     }
 
