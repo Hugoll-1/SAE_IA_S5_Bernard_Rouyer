@@ -41,11 +41,20 @@ public class MainPerceptron {
     // fin des paramètres du perceptron
 
 
-    static double[][] ensembleExempleEntrainement = new double[][]{
-            {0, 0},
-            {0, 1},
-            {1, 0},
-            {1, 1}
+    static double[][] ensembleExempleEntrainement = switch (algoChoisi) {
+        case "Sigmoid" -> new double[][]{
+                {0, 0},
+                {0, 1},
+                {1, 0},
+                {1, 1}
+        };
+        case "Tanh" -> new double[][]{
+                {-1, -1},
+                {-1, 1},
+                {1, -1},
+                {1, 1}
+        };
+        default -> throw new IllegalStateException("Unexpected value: " + algoChoisi);
     };
 
     static final int nbTrainExemple = ensembleExempleEntrainement.length;
@@ -96,12 +105,14 @@ public class MainPerceptron {
             System.out.println("Erreur max: " + erreurMax);
             // Vérifier si l'objectif est atteint
             if(erreurMax < erreurCible) {
-                System.out.println("Objectif atteint. Arrêt de l'apprentissage.");
+                System.out.println("-------------------------------------------");
+                System.out.println("Objectif atteint en "+(epoch+1)+" epoch sur "+maxEpochs+". Arrêt de l'apprentissage.");
                 break;
             }
 
         }
 
+        System.out.println("Données choisies: " + donneesChoisies);
         // Tester le réseau sur des exemples
         for (int exemple = 0; exemple < nbTestExemples; exemple++) {
             double[] entreeTest = getTestInput(exemple);
@@ -109,7 +120,7 @@ public class MainPerceptron {
             double sortieCible = getTargetOutput(exemple)[0];
 
             // Afficher les résultats de test
-            System.out.println("Test exemple " + exemple + ": " + Arrays.toString(sortiePredite)+ " (cible: " + sortieCible + ")");
+            System.out.println("Test exemple " + exemple + ": " + Arrays.toString(sortiePredite)+ " (cible: " + sortieCible + "), erreur: " + (sortieCible - sortiePredite[0]));
         }
     }
 
@@ -121,27 +132,54 @@ public class MainPerceptron {
     }
 
     // AND
-    static double[][] ensembleSortieAND = new double[][]{
-            {0},
-            {0},
-            {0},
-            {1}
+    static double[][] ensembleSortieAND = switch (algoChoisi) {
+        case "Sigmoid" -> new double[][]{
+                {0},
+                {0},
+                {0},
+                {1}
+        };
+        case "Tanh" -> new double[][]{
+                {-1},
+                {-1},
+                {-1},
+                {1}
+        };
+        default -> throw new IllegalStateException("Unexpected value: " + algoChoisi);
     };
 
     //OR
-    static double[][] ensembleSortieOR = new double[][]{
-            {0},
-            {1},
-            {1},
-            {1}
+    static double[][] ensembleSortieOR = switch (algoChoisi) {
+        case "Sigmoid" -> new double[][]{
+                {0},
+                {1},
+                {1},
+                {1}
+        };
+        case "Tanh" -> new double[][]{
+                {-1},
+                {1},
+                {1},
+                {1}
+        };
+        default -> throw new IllegalStateException("Unexpected value: " + algoChoisi);
     };
 
     //XOR
-    static double[][] ensembleSortieXOR = new double[][]{
-            {0},
-            {1},
-            {1},
-            {0}
+    static double[][] ensembleSortieXOR = switch (algoChoisi) {
+        case "Sigmoid" -> new double[][]{
+                {0},
+                {1},
+                {1},
+                {0}
+        };
+        case "Tanh" -> new double[][]{
+                {-1},
+                {1},
+                {1},
+                {-1}
+        };
+        default -> throw new IllegalStateException("Unexpected value: " + algoChoisi);
     };
 
     // Méthode pour obtenir les sorties attendues pour les données d'entraînement
