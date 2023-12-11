@@ -1,7 +1,7 @@
-import lib.HyperbolicTangentFunction;
-import lib.MLP;
-import lib.SigmoidFunction;
-import lib.TransferFunction;
+import Partie1.HyperbolicTangentFunction;
+import Partie1.MLP;
+import Partie1.SigmoidFunction;
+import Partie1.TransferFunction;
 
 import java.util.Arrays;
 
