@@ -22,7 +22,7 @@ public class SigmoidFunction implements TransferFunction {
     @Override
     public double evaluateDer(double value) {
         double sigmoid = evaluate(value);
-        return sigmoid * (1.0 - sigmoid);
+        return 1 - sigmoid * sigmoid;
     }
 }
 
