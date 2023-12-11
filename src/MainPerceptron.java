@@ -40,9 +40,6 @@ public class MainPerceptron {
     };
     public static void main(String[] args) {
         // Configurer le MLP
-        int nbNeuronesCoucheEntree = 2;
-        int nbNeuronesCoucheCachee = 3;
-        int nbNeuronesCoucheSortie = 1;
         int maxEpochs = 10000;
         int nbTrainExemple = ensembleExempleEntrainement.length;
         int nbTestExemples = ensembleExempleEntrainement.length;
@@ -50,7 +47,7 @@ public class MainPerceptron {
 
         TransferFunction fonctionActivation = new HyperbolicTangentFunction(); // Choisir la fonction d'activation
 
-        int[] couches = {nbNeuronesCoucheEntree, nbNeuronesCoucheCachee, nbNeuronesCoucheSortie}; // Spécifier l'architecture
+        int[] couches = {2,3,1};
         MLP mlp = new MLP(couches, tauxApprentissage, fonctionActivation);
 
         // Entraînement du réseau
