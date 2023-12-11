@@ -1,0 +1,34 @@
+// Définir la fonction d'activation (choisir entre Sigmoïde ou Tangente Hyperbolique)
+TransferFunction fonctionActivation = new SigmoidFunction(); // ou TangentHyperbolicFunction()
+
+// Configurer le MLP
+int[] couches = {nbNeuronesCoucheEntree, nbNeuronesCoucheCachee, nbNeuronesCoucheSortie}; // Définir l'architecture du MLP
+double tauxApprentissage = 0.6; // Définir le taux d'apprentissage
+MLP mlp = new MLP(couches, tauxApprentissage, fonctionActivation);
+
+// Entraîner le MLP sur des exemples
+pour chaque epoch {
+    pour chaque exemple d'entraînement {
+        // Préparer les données d'entrée et de sortie
+        double[] entree = preparerEntree(exempleEntrainement);
+        double[] sortieCible = preparerSortieCible(exempleEntrainement);
+
+        // Rétropropagation
+        double erreur = mlp.backPropagate(entree, sortieCible);
+
+        // Afficher l'erreur pour chaque epoch si nécessaire
+        afficher("Epoch: " + epochCourante + ", Erreur: " + erreur);
+    }
+}
+
+// Tester le MLP sur des exemples (ou d'autres données)
+pour chaque exemple de test {
+    // Préparer les données d'entrée pour le test
+    double[] entreeTest = preparerEntree(exempleTest);
+
+    // Obtenir la sortie prédite par le MLP
+    double[] sortiePredite = mlp.execute(entreeTest);
+
+    // Afficher la sortie prédite
+    afficher("Sortie Prédite: " + sortiePredite);
+}
