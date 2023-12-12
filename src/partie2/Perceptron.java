@@ -21,7 +21,7 @@ public class Perceptron extends AlgoClassification {
     /**
      * Erreur cible
      */
-    static final double erreurCible = 0.01;
+//    static final double erreurCible = 0.01;
 
     /**
      * Couches du réseau
@@ -37,9 +37,9 @@ public class Perceptron extends AlgoClassification {
 
         // Entraînement du réseau
         for (int epoch = 0; epoch < maxEpochs; epoch++) {
-            double erreurTotale = 0.0;
-            double erreurMoyenne = 0.0;
-            double erreurMax = 0.0;
+//            double erreurTotale = 0.0;
+//            double erreurMoyenne = 0.0;
+//            double erreurMax = 0.0;
             for (int exemple = 0; exemple < this.donnees.imagettes.length; exemple++) {
                 // Obtenir l'exemple d'entraînement
                 double[] entree = getTrainingInput(exemple);
@@ -52,27 +52,31 @@ public class Perceptron extends AlgoClassification {
 //                System.out.println("Epoch " + (epoch + 1) + ", exemple " + (exemple + 1) + ", erreur: " + erreur);
 
                 // Calculer l'erreur totale
-                erreurTotale += erreur;
+//                erreurTotale += erreur;
 
                 // Calculer l'erreur moyenne
-                erreurMoyenne += erreur;
+//                erreurMoyenne += erreur;
 
                 // Calculer l'erreur max
-                if (erreur > erreurMax) {
-                    erreurMax = erreur;
-                }
+//                if (erreur > erreurMax) {
+//                    erreurMax = erreur;
+//                }
             }
-            System.out.println("-------------------------------------------");
-            System.out.println("Epoch " + (epoch + 1) + " terminée.");
-            System.out.println("Erreur totale: " + erreurTotale);
-            System.out.println("Erreur moyenne: " + erreurMoyenne / this.donnees.imagettes.length);
-            System.out.println("Erreur max: " + erreurMax);
+//            System.out.println("-------------------------------------------");
+            if (epoch % (maxEpochs / 10.0) == 0) {
+                double pourcentageAvancement = ((double) epoch) / (maxEpochs - 1) * 100.0;
+                System.out.println("Avancement : " + Math.floor(pourcentageAvancement) + "%");
+            }
+//            System.out.println("Epoch " + (epoch + 1) + " terminée.");
+//            System.out.println("Erreur totale: " + erreurTotale);
+//            System.out.println("Erreur moyenne: " + erreurMoyenne / this.donnees.imagettes.length);
+//            System.out.println("Erreur max: " + erreurMax);
             // Vérifier si l'objectif est atteint
-            if (erreurMax < erreurCible) {
-                System.out.println("-------------------------------------------");
-                System.out.println("Objectif atteint en " + (epoch + 1) + " epoch sur " + maxEpochs + ". Arrêt de l'apprentissage.");
-                break;
-            }
+//            if (erreurMax < erreurCible) {
+//                System.out.println("-------------------------------------------");
+//                System.out.println("Objectif atteint en " + (epoch + 1) + " epoch sur " + maxEpochs + ". Arrêt de l'apprentissage.");
+//                break;
+//            }
 
         }
     }

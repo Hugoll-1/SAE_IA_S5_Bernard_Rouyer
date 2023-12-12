@@ -101,25 +101,48 @@ public class Statistiques {
     }
 
     public static void main(String[] args) throws IOException {
-        // Exemple d'utilisation
+        // Début chronomètre total
+        long debut = System.currentTimeMillis();
+
+        System.out.println("-------------------------------------------");
+        // Chargement des données d'entrainement
         System.out.println("Chargement des données d'entrainement en cours");
         Donnees donnees = new Donnees();
         donnees.chargerDonnee("entrainement", 1000);
+        // Fin mesure du temps de chargement donnes entrainement
+        long finChargementDonnees = System.currentTimeMillis();
+        System.out.println("Temps de chargement des données entrainement : " + (finChargementDonnees - debut) + " ms");
 
+
+        System.out.println("-------------------------------------------");
+        System.out.println("Début de l'entrainement");
 //        AlgoClassification algo = new PlusProche(donnees);
         //AlgoClassification algo = new knn(donnees, 5); // 10 000 k:20: 92%; k:10: 96%; k:5: %; k:1: 92% || 1 000 k:20: 99%; k:10: %; k:5: 99%; k:1: 82%
         AlgoClassification algo = new Perceptron(donnees);
+        long finEntrainement = System.currentTimeMillis();
+        System.out.println("Temps d'entrainement : " + (finEntrainement - finChargementDonnees) + " ms");
 
+
+        System.out.println("-------------------------------------------");
         System.out.println("Chargement des données de test en cours");
         Donnees donneesTest = new Donnees();
         donneesTest.chargerDonnee("test", 100);
+        long finChargementDonneesTest = System.currentTimeMillis();
+        System.out.println("Temps de chargement des données test : " + (finChargementDonneesTest - finEntrainement) + " ms");
 
         Statistiques statistiques = new Statistiques(algo, donneesTest);
+
 //        statistiques.evaluer();
         double[] pourcentages = statistiques.bonnesReponsesParClasses();
+        long finEvaluation = System.currentTimeMillis();
+        System.out.println("Temps d'évaluation : " + (finEvaluation - finChargementDonneesTest) + " ms");
+
         for (int classe = 0; classe < 10; classe++) {
             System.out.println("Pourcentage de classe " + classe + " correctes : " + pourcentages[classe] + "%");
         }
+        //Fin chronomètre total
+        long fin = System.currentTimeMillis();
+        System.out.println("Temps d'exécution total: " + (fin - debut) + " ms");
     }
 }
 /*
