@@ -11,27 +11,32 @@ public class Perceptron extends AlgoClassification {
     /**
      * Nombre d'itérations maximales
      */
-    static final int maxEpochs = 100;
+    int maxEpochs;
 
     /**
      * Taux d'apprentissage
      */
-    static final double tauxApprentissage = 0.1;
+    double tauxApprentissage;
 
     /**
      * Erreur cible
      */
-//    static final double erreurCible = 0.01;
+    double erreurCible;
 
     /**
      * Couches du réseau
      */
-    static final int[] couches = {16*16, 16*16, 10};
+    int[] couches;
 
     MLP mlp;
 
-    public Perceptron(Donnees donneesEntrainement) {
+    public Perceptron(Donnees donneesEntrainement, int maxEpochs, double tauxApprentissage, int[] couches, double erreurCible) {
         super(donneesEntrainement);
+        this.maxEpochs = maxEpochs;
+        this.tauxApprentissage = tauxApprentissage;
+        this.couches = couches;
+        this.erreurCible = erreurCible;
+
         TransferFunction fonctionActivation = new SigmoidFunction();
         mlp = new MLP(couches, tauxApprentissage, fonctionActivation);
 

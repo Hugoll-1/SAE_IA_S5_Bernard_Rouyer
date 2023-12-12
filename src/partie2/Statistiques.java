@@ -100,6 +100,49 @@ public class Statistiques {
 
     }
 
+    // Paramétrage
+    /**
+     * Nombre d'imagettes d'entrainement à charger
+     */
+    static final int nbImagettesEntrainement = 1000;
+
+    /**
+     * Nombre d'imagettes de test à charger
+     */
+    static final int nbImagettesTest = 1000;
+
+    /**
+     * Algorithme choisi (PlusProche, knn, Perceptron)
+     */
+    static final String algoChoisi = "Perceptron";
+
+    // Paramètre pour knn
+    /**
+     * Paramètre k
+     */
+    static final int k = 5;
+
+    // Paramètre pour Perceptron
+    /**
+     * Nombre d'itérations maximales
+     */
+    static final int maxEpochs = 40;
+
+    /**
+     * Taux d'apprentissage
+     */
+    static final double tauxApprentissage = 0.01;
+
+    /**
+     * Couches du réseau
+     */
+    static final int[] couches = {16 * 16, 16 * 16, 10};
+
+    /**
+     * Erreur cible
+     */
+    static final double erreurCible = 0.01;
+
     public static void main(String[] args) throws IOException {
         // Début chronomètre total
         long debut = System.currentTimeMillis();
@@ -108,7 +151,7 @@ public class Statistiques {
         // Chargement des données d'entrainement
         System.out.println("Chargement des données d'entrainement en cours");
         Donnees donnees = new Donnees();
-        donnees.chargerDonnee("entrainement", 1000);
+        donnees.chargerDonnee("entrainement", nbImagettesEntrainement);
         // Fin mesure du temps de chargement donnes entrainement
         long finChargementDonnees = System.currentTimeMillis();
         System.out.println("Temps de chargement des données entrainement : " + (finChargementDonnees - debut) + " ms");
@@ -116,12 +159,17 @@ public class Statistiques {
 
         System.out.println("-------------------------------------------");
         System.out.println("Début de l'entrainement");
-//        AlgoClassification algo = new PlusProche(donnees);
-        //AlgoClassification algo = new knn(donnees, 5); // 10 000 k:20: 92%; k:10: 96%; k:5: %; k:1: 92% || 1 000 k:20: 99%; k:10: %; k:5: 99%; k:1: 82%
-        AlgoClassification algo = new Perceptron(donnees);
+
+        //knn 10 000 k:20: 92%; k:10: 96%; k:5: %; k:1: 92% || 1 000 k:20: 99%; k:10: %; k:5: 99%; k:1: 82%
+        AlgoClassification algo = switch (algoChoisi) {
+            case "PlusProche" -> new PlusProche(donnees);
+            case "knn" -> new knn(donnees, k);
+            case "Perceptron" -> new Perceptron(donnees, maxEpochs, tauxApprentissage, couches, erreurCible);
+            default -> throw new IllegalStateException("Unexpected value: " + algoChoisi);
+        };
+
         long finEntrainement = System.currentTimeMillis();
         System.out.println("Temps d'entrainement : " + (finEntrainement - finChargementDonnees) + " ms");
-
 
         System.out.println("-------------------------------------------");
         System.out.println("Chargement des données de test en cours");
