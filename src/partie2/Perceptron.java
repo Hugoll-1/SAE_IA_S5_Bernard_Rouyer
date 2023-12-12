@@ -11,7 +11,7 @@ public class Perceptron extends AlgoClassification {
     /**
      * Nombre d'itérations maximales
      */
-    static final int maxEpochs = 1000;
+    static final int maxEpochs = 100;
 
     /**
      * Taux d'apprentissage
@@ -49,7 +49,7 @@ public class Perceptron extends AlgoClassification {
                 double erreur = mlp.backPropagate(entree, sortieCible);
 
                 // Afficher l'erreur
-                System.out.println("Epoch " + (epoch + 1) + ", exemple " + (exemple + 1) + ", erreur: " + erreur);
+//                System.out.println("Epoch " + (epoch + 1) + ", exemple " + (exemple + 1) + ", erreur: " + erreur);
 
                 // Calculer l'erreur totale
                 erreurTotale += erreur;
@@ -62,6 +62,8 @@ public class Perceptron extends AlgoClassification {
                     erreurMax = erreur;
                 }
             }
+            System.out.println("-------------------------------------------");
+            System.out.println("Epoch " + (epoch + 1) + " terminée.");
             System.out.println("Erreur totale: " + erreurTotale);
             System.out.println("Erreur moyenne: " + erreurMoyenne / this.donnees.imagettes.length);
             System.out.println("Erreur max: " + erreurMax);
@@ -81,7 +83,6 @@ public class Perceptron extends AlgoClassification {
         double[] res = mlp.execute(getNiveauxGris(imagette));
         int positionMax = 0;
         for (int i = 0; i < res.length; i++) {
-            System.out.println("Sortie " + i + " : " + res[i]);
             if (res[i] > res[positionMax]) {
                 positionMax = i;
             }
