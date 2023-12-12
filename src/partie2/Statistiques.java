@@ -174,7 +174,7 @@ public class Statistiques {
         System.out.println("-------------------------------------------");
         System.out.println("Chargement des données de test en cours");
         Donnees donneesTest = new Donnees();
-        donneesTest.chargerDonnee("test", 100);
+        donneesTest.chargerDonnee("test", nbImagettesTest);
         long finChargementDonneesTest = System.currentTimeMillis();
         System.out.println("Temps de chargement des données test : " + (finChargementDonneesTest - finEntrainement) + " ms");
 
