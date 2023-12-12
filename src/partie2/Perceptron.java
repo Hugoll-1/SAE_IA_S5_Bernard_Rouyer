@@ -96,7 +96,7 @@ public class Perceptron extends AlgoClassification {
                 positionMax = i;
             }
         }
-        System.out.println("Imagette théorique : " + positionMax + " \tImagette réelle : " + imagette.etiquette);
+//        System.out.println("Imagette théorique : " + positionMax + " \tImagette réelle : " + imagette.etiquette);
         // Tester le réseau sur des exemples
         return positionMax;
     }
