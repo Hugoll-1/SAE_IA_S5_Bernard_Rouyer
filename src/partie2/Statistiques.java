@@ -6,6 +6,8 @@ public class Statistiques {
     private AlgoClassification algorithme;
     private Donnees donneesTest;
 
+    private static double pourcentCorrecte;
+
     public Statistiques(AlgoClassification algorithme, Donnees donneesTest) {
         this.algorithme = algorithme;
         this.donneesTest = donneesTest;
@@ -92,8 +94,8 @@ public class Statistiques {
                 pourcentagesParClasse[etiquette] = (double) bonnesReponsesParEtiquettes[etiquette] / occurrencesParEtiquettes[etiquette] * 100.0;
             }
         }
-        double pourcentCorrecte = (double) correctes / totalEchantillons * 100.0;
-        System.out.println("Pourcentage de test correctes : " + pourcentCorrecte + "%");
+        pourcentCorrecte = (double) correctes / totalEchantillons * 100.0;
+        System.out.println("Pourcentage de test corrects : " + pourcentCorrecte + "%");
         System.out.println("Nombre de test corrects : " + correctes + "/" + totalEchantillons);
 
         return pourcentagesParClasse;
@@ -144,6 +146,7 @@ public class Statistiques {
     static final double erreurCible = 0.01;
 
     public static void main(String[] args) throws IOException {
+
         // Début chronomètre total
         long debut = System.currentTimeMillis();
 
@@ -191,6 +194,33 @@ public class Statistiques {
         //Fin chronomètre total
         long fin = System.currentTimeMillis();
         System.out.println("Temps d'exécution total: " + (fin - debut) + " ms");
+
+
+        System.out.println("------------------------------");
+        System.out.println("Affichage des paramètres:");
+        System.out.println("Nombre d'imagettes d'entrainement à charger : " + nbImagettesEntrainement);
+        System.out.println("Nombre d'imagettes de test à charger : " + nbImagettesTest);
+        System.out.println("Algorithme choisi : " + algoChoisi);
+        switch (algoChoisi){
+            case "PlusProche" -> System.out.println("Aucun paramètre supplémentaire");
+            case "knn" -> System.out.println("Paramètre k : " + k);
+            case "Perceptron" -> {
+                System.out.println("Nombre d'itérations maximales : " + maxEpochs);
+                System.out.println("Taux d'apprentissage : " + tauxApprentissage);
+                System.out.println("Couches du réseau : " + couches);
+                System.out.println("Erreur cible : " + erreurCible);
+            }
+        }
+        System.out.println("------------------------------");
+        System.out.println("Affichage des résultats:");
+        System.out.println("Pourcentage de test correctes : " + pourcentCorrecte + "%");
+        System.out.println("Affichage des temps d'exécution:");
+        System.out.println("Temps de chargement des données entrainement : " + (finChargementDonnees - debut) + " ms");
+        System.out.println("Temps d'entrainement : " + (finEntrainement - finChargementDonnees) + " ms");
+        System.out.println("Temps de chargement des données test : " + (finChargementDonneesTest - finEntrainement) + " ms");
+        System.out.println("Temps d'évaluation : " + (finEvaluation - finChargementDonneesTest) + " ms");
+        System.out.println("Temps d'exécution total: " + (fin - debut) + " ms");
+
     }
 }
 /*
