@@ -1,3 +1,5 @@
+package Partie1;
+
 import Partie1.HyperbolicTangentFunction;
 import Partie1.MLP;
 import Partie1.SigmoidFunction;
