@@ -4,13 +4,14 @@ import Partie1.MLP;
 import Partie1.SigmoidFunction;
 import Partie1.TransferFunction;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Perceptron extends AlgoClassification {
     /**
      * Nombre d'itérations maximales
      */
-    static final int maxEpochs = 10000;
+    static final int maxEpochs = 1000;
 
     /**
      * Taux d'apprentissage
@@ -41,8 +42,8 @@ public class Perceptron extends AlgoClassification {
             double erreurMax = 0.0;
             for (int exemple = 0; exemple < this.donnees.imagettes.length; exemple++) {
                 // Obtenir l'exemple d'entraînement
-                Imagette entree = getTrainingInput(exemple);
-                int sortieCible = getTargetOutput(exemple);
+                double[] entree = getTrainingInput(exemple);
+                double[] sortieCible = getTargetOutput(exemple);
 
                 // Exécuter le réseau et rétropropagation
                 double erreur = mlp.backPropagate(entree, sortieCible);
@@ -76,22 +77,34 @@ public class Perceptron extends AlgoClassification {
 
     @Override
     public int predireEtiquette(Imagette imagette) {
+        //Affichage des résultats
+        double res = mlp.execute(getNiveauxGris(imagette))[0];
+        System.out.println("Imagette théorique : " + res + " \tImagette réelle : " + imagette.etiquette);
         // Tester le réseau sur des exemples
-        int sortiePredite = mlp.execute(imagette);
-
-        return sortiePredite;
+        return (int)res;
     }
 
 
     // Méthode pour obtenir les données d'entraînement
-    public Imagette getTrainingInput(int example) {
-        return this.donnees.imagettes[example];
+    public double[] getTrainingInput(int example) {
+        Imagette imagette = donnees.imagettes[example];
+        return getNiveauxGris(imagette);
+    }
+
+    private static double[] getNiveauxGris(Imagette imagette) {
+        double[] entreeCibleArray = new double[16*16];
+
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 16; j++) {
+                entreeCibleArray[i*16+j] = imagette.niveauxGris[i][j];
+            }
+        }
+        return entreeCibleArray;
     }
 
 
     // Méthode pour obtenir les sorties attendues pour les données d'entraînement
-    public int getTargetOutput(int example) {
-        return this.donnees.imagettes[example].etiquette;
+    public double[] getTargetOutput(int example) {
+        return new double[]{this.donnees.imagettes[example].etiquette};
     }
-
 }

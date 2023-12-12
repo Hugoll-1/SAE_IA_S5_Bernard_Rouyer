@@ -104,14 +104,15 @@ public class Statistiques {
         // Exemple d'utilisation
         System.out.println("Chargement des données d'entrainement en cours");
         Donnees donnees = new Donnees();
-        donnees.chargerDonnee("entrainement", -1);
+        donnees.chargerDonnee("entrainement", 10000);
 
 //        AlgoClassification algo = new PlusProche(donnees);
-        AlgoClassification algo = new knn(donnees, 20); // 10 000 k:20: 92%; k:10: 96%; k:5: %; k:1: 92% || 1 000 k:20: 99%; k:10: %; k:5: 99%; k:1: 82%
+        //AlgoClassification algo = new knn(donnees, 5); // 10 000 k:20: 92%; k:10: 96%; k:5: %; k:1: 92% || 1 000 k:20: 99%; k:10: %; k:5: 99%; k:1: 82%
+        AlgoClassification algo = new Perceptron(donnees);
 
         System.out.println("Chargement des données de test en cours");
         Donnees donneesTest = new Donnees();
-        donneesTest.chargerDonnee("test", -1);
+        donneesTest.chargerDonnee("test", 1000);
 
         Statistiques statistiques = new Statistiques(algo, donneesTest);
 //        statistiques.evaluer();
