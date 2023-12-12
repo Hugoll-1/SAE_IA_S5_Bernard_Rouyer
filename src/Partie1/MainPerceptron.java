@@ -1,10 +1,5 @@
 package Partie1;
 
-import Partie1.HyperbolicTangentFunction;
-import Partie1.MLP;
-import Partie1.SigmoidFunction;
-import Partie1.TransferFunction;
-
 import java.util.Arrays;
 
 // Définir la classe principale du perceptron multi-couches

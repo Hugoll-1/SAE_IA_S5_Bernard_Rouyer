@@ -16,32 +16,32 @@ import java.util.stream.Collectors;
 * Un Probleme où les états et les transitions sont spécifiées. 
 *
 *
-* <p>Cette classe ajoute un ensemble détat et de transition à {@link SearchProblem}. Pour un exemple, voir la classe {@link ia.problemes.Vacuum})</p>
+* <p>Cette classe ajoute un ensemble détat et de transition à {@link SearchProblem}. Pour un exemple, voir la classe {@link Partie3.ia.problemes.Vacuum})</p>
 *
 */
 
 public abstract class Problem extends SearchProblem {
 
     /**
-     * La liste des états a remplir (voir {@link ia.problemes.Vacuum})
+     * La liste des états à remplir (voir {@link Partie3.ia.problemes.Vacuum})
      */
     
     protected static State[] STATES = null ;
 
     /**
-     * La liste des transition a remplir (voir {@link ia.problemes.Vacuum})
+     * La liste des transitions à remplir (voir {@link Partie3.ia.problemes.Vacuum})
      */
     protected static Transitions TRANSITIONS = new Transitions();
     
     
     public ArrayList<Action> getActions(State s){
-        // rechercher dans toutes les transitions celle qui partent de s
+        // rechercher dans toutes les transitions celles qui partent de s
         Set<StateActionPair> sa = TRANSITIONS.getKeys();
         List<StateActionPair> state = sa.stream()
             .filter(k -> s.equals(k.getState()))
             .collect(Collectors.toList());
 
-        // récupérer les action depuis s
+        // récupérer les actions depuis s
         List<Action> actions = state
             .stream()
             .map(k -> k.getAction())
@@ -53,7 +53,7 @@ public abstract class Problem extends SearchProblem {
         return result;
     }
     
-    // exécute l'action a dans l'état s, retourne le nouvel état
+    // exécute l'action à dans l'état s, retourne le nouvel état
     public State doAction(State s, Action a){
         return TRANSITIONS.getTransition(s,a);
     }

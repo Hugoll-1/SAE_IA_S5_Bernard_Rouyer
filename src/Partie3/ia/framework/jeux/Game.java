@@ -11,7 +11,7 @@ import java.util.Random;
  * Définie un problem de type jeux
  *
  * est un BaseProblem sans tableau d'état ni transitions
- * on les genère dans l'état du jeux comme pour SearchProblem
+ * on les génère dans l'état du jeu comme pour SearchProblem
  */
 
 public abstract class Game extends BaseProblem {
@@ -48,14 +48,14 @@ public abstract class Game extends BaseProblem {
 
 
     /**
-     * Générer un coup  aléatoire
+     * Générer un coup aléatoire
      *
-     * @param s l'état du jeux
+     * @param s l'état du jeu
      * @return l'action générée
      */ 
     public Action getRandomMove(GameState s){
         ArrayList<Action> possible = getActions((State) s);
-        if( possible.size()>0 )
+        if(!possible.isEmpty())
             return possible.get(rng.nextInt(possible.size()));
         return null; 
     }

@@ -2,7 +2,6 @@ package Partie3.ia.framework.common;
 
 import Partie3.ia.algo.jeux.*;
 import Partie3.ia.algo.recherche.*;
-import Partie3.ia.framework.common.*;
 import Partie3.ia.framework.jeux.*;
 import Partie3.ia.framework.recherche.*;
 import Partie3.ia.problemes.*;
@@ -69,9 +68,7 @@ public class ArgParse {
      */
     public static boolean getFlagFromCmd(String[] args, String arg) {
         int idx = Arrays.asList(args).indexOf(arg);
-        if (idx >= 0)
-            return true;
-        return false;
+        return idx >= 0;
 
     }
 
@@ -270,17 +267,12 @@ public class ArgParse {
     public static State makeInitialState(String prob) {
         if (prob == null)
             prob = "vac";
-        switch (prob) {
-            case "dum":
-                return new DummyState();
-            case "map":
-                return RomaniaMap.ARAD;
-            case "vac":
-            default:
-                return new VacuumState();
-            case "puz":
-                return new EightPuzzleState();
-        }
+        return switch (prob) {
+            case "dum" -> new DummyState();
+            case "map" -> RomaniaMap.ARAD;
+            default -> new VacuumState();
+            case "puz" -> new EightPuzzleState();
+        };
     }
 }
 

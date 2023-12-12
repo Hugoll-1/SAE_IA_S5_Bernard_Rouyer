@@ -5,7 +5,6 @@ import Partie3.ia.framework.jeux.Game;
 import Partie3.ia.framework.jeux.GameEngine;
 import Partie3.ia.framework.jeux.GameState;
 import Partie3.ia.framework.jeux.Player;
-import Partie3.ia.problemes.*;
 
 /**
  * Lance un une partie de jeux donné et affiche le resultat
@@ -27,12 +26,12 @@ public class LancerJeux {
              
              );
         
-        // récupérer les option de la ligne de commande
+        // récupérer les options de la ligne de commande
         String game_name = ArgParse.getGameFromCmd(args);
         String p1_type = ArgParse.getPlayer1FromCmd(args);
         String p2_type = ArgParse.getPlayer2FromCmd(args);
  
-        // créer un jeux, des joueurs et le moteur de jeux
+        // créer un jeu, des joueurs et le moteur de jeux
         Game game = ArgParse.makeGame(game_name);
         Player p1 = ArgParse.makePlayer(p1_type, game, true);
         Player p2 = ArgParse.makePlayer(p2_type, game, false);
