@@ -104,11 +104,13 @@ public class Perceptron extends AlgoClassification {
     }
 
     private static double[] getNiveauxGris(Imagette imagette) {
-        double[] entreeCibleArray = new double[16*16];
+        int ligne = imagette.niveauxGris.length;
+        int colone = imagette.niveauxGris[0].length;
+        double[] entreeCibleArray = new double[ligne*colone];
 
-        for (int i = 0; i < 16; i++) {
-            for (int j = 0; j < 16; j++) {
-                entreeCibleArray[i*16+j] = imagette.niveauxGris[i][j];
+        for (int i = 0; i < ligne; i++) {
+            for (int j = 0; j < colone; j++) {
+                entreeCibleArray[i*ligne+j] = imagette.niveauxGris[i][j];
             }
         }
         return entreeCibleArray;
