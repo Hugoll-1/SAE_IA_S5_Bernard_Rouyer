@@ -26,7 +26,7 @@ public class Perceptron extends AlgoClassification {
     /**
      * Couches du réseau
      */
-    static final int[] couches = {2, 3, 1};
+    static final int[] couches = {16*16, 16*16, 10};
 
     MLP mlp;
 
@@ -78,10 +78,17 @@ public class Perceptron extends AlgoClassification {
     @Override
     public int predireEtiquette(Imagette imagette) {
         //Affichage des résultats
-        double res = mlp.execute(getNiveauxGris(imagette))[0];
-        System.out.println("Imagette théorique : " + res + " \tImagette réelle : " + imagette.etiquette);
+        double[] res = mlp.execute(getNiveauxGris(imagette));
+        int positionMax = 0;
+        for (int i = 0; i < res.length; i++) {
+            System.out.println("Sortie " + i + " : " + res[i]);
+            if (res[i] > res[positionMax]) {
+                positionMax = i;
+            }
+        }
+        System.out.println("Imagette théorique : " + positionMax + " \tImagette réelle : " + imagette.etiquette);
         // Tester le réseau sur des exemples
-        return (int)res;
+        return positionMax;
     }
 
 
@@ -105,6 +112,8 @@ public class Perceptron extends AlgoClassification {
 
     // Méthode pour obtenir les sorties attendues pour les données d'entraînement
     public double[] getTargetOutput(int example) {
-        return new double[]{this.donnees.imagettes[example].etiquette};
+        double[] tableau = new double[]{0,0,0,0,0,0,0,0,0,0};
+        tableau[donnees.imagettes[example].etiquette] = 1;
+        return tableau;
     }
 }
