@@ -106,7 +106,7 @@ public class Statistiques {
     /**
      * Nombre d'imagettes d'entrainement à charger
      */
-    static final int nbImagettesEntrainement = 1000;
+    static final int nbImagettesEntrainement = 1025;
 
     /**
      * Nombre d'imagettes de test à charger
@@ -118,6 +118,11 @@ public class Statistiques {
      */
     static final String algoChoisi = "Perceptron";
 
+    /**
+     * Fonction d'activation choisie (sigmoide, tanh)
+     */
+    static final String fonctionActivation = "Sigmoid";
+
     // Paramètre pour knn
     /**
      * Paramètre k
@@ -128,7 +133,7 @@ public class Statistiques {
     /**
      * Nombre d'itérations maximales
      */
-    static final int maxEpochs = 40;
+    static final int maxEpochs = 60;
 
     /**
      * Taux d'apprentissage
@@ -138,7 +143,7 @@ public class Statistiques {
     /**
      * Couches du réseau
      */
-    static final int[] couches = {16 * 16, 16 * 16, 10};
+    static final int[] couches = {28*28, 16*16, 10};
 
     /**
      * Erreur cible
@@ -167,12 +172,13 @@ public class Statistiques {
         AlgoClassification algo = switch (algoChoisi) {
             case "PlusProche" -> new PlusProche(donnees);
             case "knn" -> new knn(donnees, k);
-            case "Perceptron" -> new Perceptron(donnees, maxEpochs, tauxApprentissage, couches, erreurCible);
+            case "Perceptron" -> new Perceptron(donnees, maxEpochs, tauxApprentissage, couches, erreurCible, fonctionActivation);
             default -> throw new IllegalStateException("Unexpected value: " + algoChoisi);
         };
 
         long finEntrainement = System.currentTimeMillis();
         System.out.println("Temps d'entrainement : " + (finEntrainement - finChargementDonnees) + " ms");
+
 
         System.out.println("-------------------------------------------");
         System.out.println("Chargement des données de test en cours");

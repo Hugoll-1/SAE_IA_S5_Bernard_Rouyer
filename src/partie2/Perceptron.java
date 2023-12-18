@@ -1,5 +1,6 @@
 package partie2;
 
+import Partie1.HyperbolicTangentFunction;
 import Partie1.MLP;
 import Partie1.SigmoidFunction;
 import Partie1.TransferFunction;
@@ -30,14 +31,19 @@ public class Perceptron extends AlgoClassification {
 
     MLP mlp;
 
-    public Perceptron(Donnees donneesEntrainement, int maxEpochs, double tauxApprentissage, int[] couches, double erreurCible) {
+    public Perceptron(Donnees donneesEntrainement, int maxEpochs, double tauxApprentissage, int[] couches, double erreurCible, String algoChoisi) {
         super(donneesEntrainement);
         this.maxEpochs = maxEpochs;
         this.tauxApprentissage = tauxApprentissage;
         this.couches = couches;
         this.erreurCible = erreurCible;
 
-        TransferFunction fonctionActivation = new SigmoidFunction();
+
+        TransferFunction fonctionActivation = switch (algoChoisi) {
+            case "Sigmoid" -> new SigmoidFunction();
+            case "Tanh" -> new HyperbolicTangentFunction();
+            default -> throw new IllegalStateException("Unexpected value: " + algoChoisi);
+        };
         mlp = new MLP(couches, tauxApprentissage, fonctionActivation);
 
         // Entraînement du réseau
