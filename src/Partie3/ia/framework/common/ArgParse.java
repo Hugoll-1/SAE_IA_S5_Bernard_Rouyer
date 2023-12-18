@@ -161,6 +161,8 @@ public class ArgParse {
                 return new Vacuum();
             case "puz":
                 return new EightPuzzle();
+            case "rush":
+                return new RushHour();
             default:
                 System.out.println("Problème inconnu");
                 usage();
@@ -270,8 +272,9 @@ public class ArgParse {
         return switch (prob) {
             case "dum" -> new DummyState();
             case "map" -> RomaniaMap.ARAD;
-            default -> new VacuumState();
             case "puz" -> new EightPuzzleState();
+            case "rush" -> new RushHourState();
+            default -> new VacuumState();
         };
     }
 }

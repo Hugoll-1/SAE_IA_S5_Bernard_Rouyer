@@ -79,7 +79,7 @@ public class AStar extends TreeSearch {
                 }
             }
         }
-
+        System.out.println("Pas de solution trouvée.");
         // Pas de solutions trouvées
         return false;
 

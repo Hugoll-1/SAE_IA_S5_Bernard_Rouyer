@@ -4,6 +4,9 @@ import Partie3.ia.framework.common.ArgParse;
 import Partie3.ia.framework.common.State;
 import Partie3.ia.framework.recherche.SearchProblem;
 import Partie3.ia.framework.recherche.TreeSearch;
+import Partie3.ia.problemes.RushHourState;
+
+import java.util.Arrays;
 
 /**
  * Lance un algorithme de recherche  
@@ -18,7 +21,7 @@ public class LancerRecherche {
             ("Utilisation :\n\n"
              + "java LancerRecherche [-prob problem] [-algo algoname]"
              + "[-v] [-h]\n"
-             + "-prob : Le nom du problem {dum, map, vac, puz}. Par défaut vac\n"
+             + "-prob : Le nom du problem {dum, map, vac, puz, rush}. Par défaut vac\n"
              + "-algo : L'algorithme {rnd, bfs, dfs, ucs, gfs, astar}. Par défault rnd\n"
              + "-v    : Rendre bavard (mettre à la fin)\n"
              + "-h    : afficher ceci (mettre à la fin)"
