@@ -9,6 +9,12 @@ import Partie3.ia.framework.jeux.Player;
 
 public class MinMaxAlphaBetaPlayer extends Player {
 
+    int nbEtat;
+
+    private static final int profondeurMax = 100;
+
+    private int profondeur;
+
     /**
      * Represente un joueur
      *
@@ -17,28 +23,31 @@ public class MinMaxAlphaBetaPlayer extends Player {
      */
     public MinMaxAlphaBetaPlayer(Game g, boolean player_one) {
         super(g, player_one);
+        nbEtat = 0;
+        name = "alphabeta";
     }
 
 
     @Override
     public Action getMove(GameState state) {
-        System.out.println("MinMax");
-        System.out.println(player);
-        System.out.println(state);
+        profondeur= 0;
         if (player == PLAYER1) {
-            return MaxValue(state, Double.MIN_VALUE, Double.MAX_VALUE).getAction();
+            return MaxValue(state, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY).getAction();
         } else {
-            return MinValue(state, Double.MIN_VALUE, Double.MAX_VALUE).getAction();
+            return MinValue(state, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY).getAction();
         }
     }
 
     public ActionValuePair MaxValue(GameState state, double alpha, double beta) {
-        if (game.endOfGame(state)) {
+        if (game.endOfGame(state) || profondeur == profondeurMax) {
             return new ActionValuePair(null, state.getGameValue());
         }
-        double V_max = Double.MIN_VALUE;
+        double V_max = Double.NEGATIVE_INFINITY;
         Action C_max = null;
+        profondeur++;
         for (Action c : game.getActions(state)) {
+            nbEtat++;
+            //System.out.println("nbEtat : " + nbEtat);
             State S_suivant = game.doAction(state, c);
             ActionValuePair c_suivant = MinValue((GameState) S_suivant, alpha, beta);
             double v = c_suivant.getValue();
@@ -60,12 +69,15 @@ public class MinMaxAlphaBetaPlayer extends Player {
     }
 
     public ActionValuePair MinValue(GameState state, double alpha, double beta) {
-        if (game.endOfGame(state)) {
+        if (game.endOfGame(state) || profondeur == profondeurMax) {
             return new ActionValuePair(null, state.getGameValue());
         }
-        Double V_min = Double.MAX_VALUE;
+        double V_min = Double.POSITIVE_INFINITY;
         Action C_min = null;
+        profondeur++;
         for (Action c : game.getActions(state)) {
+            nbEtat++;
+            //System.out.println("nbEtat : " + nbEtat);
             State S_suivant = game.doAction(state, c);
             ActionValuePair c_suivant = MaxValue((GameState) S_suivant, alpha, beta);
             double v = c_suivant.getValue();
