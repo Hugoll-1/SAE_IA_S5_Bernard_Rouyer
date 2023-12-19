@@ -106,7 +106,7 @@ public class Statistiques {
     /**
      * Nombre d'imagettes d'entrainement à charger
      */
-    static final int nbImagettesEntrainement = 1025;
+    static final int nbImagettesEntrainement = 1000;
 
     /**
      * Nombre d'imagettes de test à charger
@@ -116,18 +116,18 @@ public class Statistiques {
     /**
      * Algorithme choisi (PlusProche, knn, Perceptron)
      */
-    static final String algoChoisi = "Perceptron";
+    static final String algoChoisi = "knn";
 
     /**
      * Fonction d'activation choisie (sigmoide, tanh)
      */
-    static final String fonctionActivation = "Sigmoid";
+    static final String fonctionActivation = "Tanh";
 
     // Paramètre pour knn
     /**
      * Paramètre k
      */
-    static final int k = 5;
+    static final int k = 15;
 
     // Paramètre pour Perceptron
     /**
@@ -138,12 +138,12 @@ public class Statistiques {
     /**
      * Taux d'apprentissage
      */
-    static final double tauxApprentissage = 0.01;
+    static final double tauxApprentissage = 0.005;
 
     /**
      * Couches du réseau
      */
-    static final int[] couches = {28*28, 16*16, 10};
+    static final int[] couches = {28*28, 32*32, 16*16, 128,64, 10};
 
     /**
      * Erreur cible

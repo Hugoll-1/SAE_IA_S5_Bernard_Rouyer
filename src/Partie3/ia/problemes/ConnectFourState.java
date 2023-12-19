@@ -82,7 +82,7 @@ public class ConnectFourState extends GameState {
         res += Misc.dupString("+---", cols);
         res += "+\n";
         //for(int i=rows-1;i>=0; i--){
-        for(int i=0;i<rows; i++){
+        for(int i=rows-1;i>=0; i--){
             for(int j=0; j<cols; j++)
                 res += "| "+ (char)board[i][j]+" ";
             res += "|\n";
@@ -336,6 +336,7 @@ public class ConnectFourState extends GameState {
 
 
 
-
-
+    public int[][] getBoard() {
+        return board;
+    }
 }

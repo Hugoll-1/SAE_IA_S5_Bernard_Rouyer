@@ -6,12 +6,13 @@ import Partie3.ia.framework.common.State;
 import Partie3.ia.framework.jeux.Game;
 import Partie3.ia.framework.jeux.GameState;
 import Partie3.ia.framework.jeux.Player;
+import Partie3.ia.problemes.ConnectFourState;
 
 public class MinMaxAlphaBetaPlayer extends Player {
 
     int nbEtat;
 
-    private static final int profondeurMax = 100;
+    private static final int profondeurMax = 25;
 
     private int profondeur;
 
@@ -30,7 +31,7 @@ public class MinMaxAlphaBetaPlayer extends Player {
 
     @Override
     public Action getMove(GameState state) {
-        profondeur= 0;
+        profondeur = 0;
         if (player == PLAYER1) {
             return MaxValue(state, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY).getAction();
         } else {
@@ -39,8 +40,11 @@ public class MinMaxAlphaBetaPlayer extends Player {
     }
 
     public ActionValuePair MaxValue(GameState state, double alpha, double beta) {
-        if (game.endOfGame(state) || profondeur == profondeurMax) {
+        if (game.endOfGame(state)) {
             return new ActionValuePair(null, state.getGameValue());
+        }
+        if (profondeur == profondeurMax) {
+            return new ActionValuePair(null, evaluate(state));
         }
         double V_max = Double.NEGATIVE_INFINITY;
         Action C_max = null;
@@ -69,8 +73,11 @@ public class MinMaxAlphaBetaPlayer extends Player {
     }
 
     public ActionValuePair MinValue(GameState state, double alpha, double beta) {
-        if (game.endOfGame(state) || profondeur == profondeurMax) {
+        if (game.endOfGame(state)) {
             return new ActionValuePair(null, state.getGameValue());
+        }
+        if (profondeur == profondeurMax) {
+            return new ActionValuePair(null, evaluate(state));
         }
         double V_min = Double.POSITIVE_INFINITY;
         Action C_min = null;
@@ -92,8 +99,32 @@ public class MinMaxAlphaBetaPlayer extends Player {
                 return new ActionValuePair(C_min, V_min);
             }
         }
-        return new ActionValuePair(C_min,V_min);
+        return new ActionValuePair(C_min, V_min);
     }
 
+    private double evaluate (GameState state) {
+        int[][] board = ((ConnectFourState) state).getBoard();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                for (int[] direction : new int[][]{{1, 0}, {0, 1}, {1, 1}, {1, -1}}) {
+                    int x = i;
+                    int y = j;
+                    int count = 0;
+                    while (estDansCadre(x, y, board.length, board[i].length) && board[x][y] == state.getPlayerToMove()) {
+                        count++;
+                        x += direction[0];
+                        y += direction[1];
+                    }
+                    if (count >= 4) {
+                        return 1;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
 
+    private boolean estDansCadre(int x, int y, int n, int p) {
+        return x >= 0 && x < n && y >= 0 && y < p;
+    }
 }
